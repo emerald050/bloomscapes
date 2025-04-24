@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Choose Your Flowers</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <h2>Decorate Your Basket!</h2>
+    <div class="basket-wrapper temp-border">
+      <img id="basket-img" src="basket.png" alt="Basket">
+      <div id="flower-placement"></div>
+    </div>
+
+    <div class="flower-buttons">
+      <button onclick="addFlower('flower1.png')"><img src="flower1.png" alt="Flower 1"></button>
+      <button onclick="addFlower('flower2.png')"><img src="flower2.png" alt="Flower 2"></button>
+      <button onclick="addFlower('flower3.png')"><img src="flower3.png" alt="Flower 3"></button>
+      <button onclick="addFlower('flower4.png')"><img src="flower4.png" alt="Flower 4"></button>
+      <button onclick="addFlower('flower5.png')"><img src="flower5.png" alt="Flower 5"></button>
+      <button onclick="addFlower('flower6.png')"><img src="flower6.png" alt="Flower 6"></button>
+    </div><br>
+    <button class="next-btn" onclick="goBack()">Previous</button>
+    <button class="next-btn" onclick="resetBasket()">Reset Basket</button>
+    <button class="next-btn" onclick="goToBow()">Next</button>
+  </div>
+
+  <!-- Pop-up for flower limit -->
+  <div id="popup-container" class="popup-container">
+    <div class="popup-content">
+      <h3>Three flowers, the Charm!</h3>
+      <p>You can only add up to three flowers.</p>
+      <button class="popup-btn" onclick="closePopup()">OK</button> <!-- Only OK button -->
+    </div>
+  </div>
+
+  <script>
+    const flowers = [];
+
+    function addFlower(src) {
+      if (flowers.length < 3) {
+        flowers.push(src);
+        const img = document.createElement('img');
+        img.src = src;
+        document.getElementById('flower-placement').appendChild(img);
+      } else {
+        showPopup(); // Show the pop-up when trying to add more than 3 flowers
+      }
+    }
+
+    function resetBasket() {
+      flowers.length = 0;
+      document.getElementById('flower-placement').innerHTML = '';
+    }
+
+    function goToBow() {
+      localStorage.setItem('flowers', JSON.stringify(flowers));
+      window.location.href = 'bow.html';
+    }
+
+    function goBack() {
+      window.location.href = 'index.html'; // Navigate to 'index.html'
+    }
+
+    // Function to show the pop-up
+    function showPopup() {
+      document.getElementById('popup-container').style.display = 'flex';
+    }
+
+    // Function to close the pop-up
+    function closePopup() {
+      document.getElementById('popup-container').style.display = 'none';
+    }
+  </script>
+</body>
+</html>
